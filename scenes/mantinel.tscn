@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfl348fpduocq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mduwg"]
+size = Vector2(1284, 13)
+
+[node name="Mantinel" type="StaticBody2D"]
+metadata/_edit_horizontal_guides_ = [14.0]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(641, 7.5)
+shape = SubResource("RectangleShape2D_mduwg")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -16.0
+offset_right = 1295.0
+offset_bottom = 15.0
+color = Color(0.27450982, 0.6039216, 0.90588236, 1)

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b60biyyhkn8jn"]
+
+[ext_resource type="Script" uid="uid://6870xle0407a" path="res://scripts/paddle_left.gd" id="1_kuuw3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kuuw3"]
+size = Vector2(10.625, 123)
+
+[node name="PaddleLeft" type="CharacterBody2D"]
+position = Vector2(51, 324)
+script = ExtResource("1_kuuw3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_kuuw3")

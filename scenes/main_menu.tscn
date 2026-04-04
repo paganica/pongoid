@@ -1,0 +1,86 @@
+[gd_scene load_steps=2 format=3 uid="uid://deeycanc1t5uf"]
+
+[ext_resource type="Script" uid="uid://dqcogfmest8ly" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+
+[node name="MainMenu" type="Control"]
+physics_interpolation_mode = 0
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l6cm7")
+
+[node name="VBoxMenu" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -125.0
+offset_right = 100.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+alignment = 1
+
+[node name="NewGameButton" type="Button" parent="VBoxMenu"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.30980393, 0.6627451, 0.38431373, 1)
+theme_override_colors/font_hover_color = Color(0.627451, 0.96862745, 0.99607843, 1)
+theme_override_font_sizes/font_size = 32
+text = "   New Game   "
+
+[node name="PlayerModeButton" type="Button" parent="VBoxMenu"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.30980393, 0.6627451, 0.38431373, 1)
+theme_override_colors/font_hover_color = Color(0.627451, 0.96862745, 0.99607843, 1)
+theme_override_font_sizes/font_size = 32
+text = "1 Player"
+
+[node name="WinScore" type="Button" parent="VBoxMenu"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.30980393, 0.6627451, 0.38431373, 1)
+theme_override_colors/font_hover_color = Color(0.627451, 0.96862745, 0.99607843, 1)
+theme_override_font_sizes/font_size = 32
+text = "Win Score: 3
+"
+
+[node name="DifficultyButton" type="Button" parent="VBoxMenu"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.30980393, 0.6627451, 0.38431373, 1)
+theme_override_colors/font_hover_color = Color(0.627451, 0.96862745, 0.99607843, 1)
+theme_override_font_sizes/font_size = 32
+text = "Medium"
+
+[node name="SoundButton" type="Button" parent="VBoxMenu"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.30980393, 0.6627451, 0.38431373, 1)
+theme_override_colors/font_hover_color = Color(0.627451, 0.96862745, 0.99607843, 1)
+theme_override_font_sizes/font_size = 32
+text = "Sound: ON"
+
+[node name="ExitButton" type="Button" parent="VBoxMenu"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.30980393, 0.6627451, 0.38431373, 1)
+theme_override_colors/font_hover_color = Color(0.627451, 0.96862745, 0.99607843, 1)
+theme_override_font_sizes/font_size = 32
+text = "Exit
+"
+
+[connection signal="pressed" from="VBoxMenu/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="VBoxMenu/PlayerModeButton" to="." method="_on_player_mode_button_pressed"]
+[connection signal="pressed" from="VBoxMenu/WinScore" to="." method="_on_win_score_pressed"]
+[connection signal="pressed" from="VBoxMenu/DifficultyButton" to="." method="_on_difficulty_button_pressed"]
+[connection signal="pressed" from="VBoxMenu/SoundButton" to="." method="_on_sound_button_pressed"]
+[connection signal="pressed" from="VBoxMenu/ExitButton" to="." method="_on_exit_button_pressed"]

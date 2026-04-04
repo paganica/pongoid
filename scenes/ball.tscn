@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://ubfvlk0dd08n"]
+
+[ext_resource type="Script" uid="uid://dchvpq8lts4tj" path="res://scripts/ball.gd" id="1_x8fbi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_41u45"]
+
+[node name="Ball" type="CharacterBody2D"]
+script = ExtResource("1_x8fbi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1.2, 1.2)
+shape = SubResource("CircleShape2D_41u45")

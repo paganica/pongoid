@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfrj7cges7ivf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ex8h3"]
+line_spacing = 0.0
+font_size = 60
+outline_size = 19
+outline_color = Color(0.0063187727, 0.0038252787, 0.001818962, 1)
+shadow_size = 0
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = -1.0
+offset_top = 1.0
+offset_right = 1280.0
+offset_bottom = 723.0
+text = "0   :   0"
+label_settings = SubResource("LabelSettings_ex8h3")
+horizontal_alignment = 1
