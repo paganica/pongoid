@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dfrj7cges7ivf"]
+[gd_scene load_steps=3 format=3 uid="uid://dfrj7cges7ivf"]
+
+[ext_resource type="Script" uid="uid://jjixua16n6r7" path="res://scripts/canvas_layer.gd" id="1_c4rma"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ex8h3"]
 line_spacing = 0.0
@@ -8,6 +10,7 @@ outline_color = Color(0.0063187727, 0.0038252787, 0.001818962, 1)
 shadow_size = 0
 
 [node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_c4rma")
 
 [node name="ScoreLabel" type="Label" parent="."]
 offset_left = -1.0
@@ -17,3 +20,48 @@ offset_bottom = 723.0
 text = "0   :   0"
 label_settings = SubResource("LabelSettings_ex8h3")
 horizontal_alignment = 1
+
+[node name="WinScreen" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WinLabel" type="Label" parent="WinScreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.99500006
+anchor_bottom = 1.0070001
+offset_top = 250.0
+offset_right = -0.5550537
+offset_bottom = -376.04004
+theme_override_font_sizes/font_size = 72
+text = "\"Player 1 Wins!\""
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartButton" type="Button" parent="WinScreen"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 370.0
+offset_right = 960.0
+offset_bottom = 460.0
+theme_override_font_sizes/font_size = 48
+text = "Restart"
+
+[node name="MenuButton" type="Button" parent="WinScreen"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 470.0
+offset_right = 960.0
+offset_bottom = 560.0
+theme_override_font_sizes/font_size = 48
+text = "Menu
+"
+
+[connection signal="pressed" from="WinScreen/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="WinScreen/MenuButton" to="." method="_on_menu_button_pressed"]

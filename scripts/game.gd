@@ -5,6 +5,8 @@ var score_right := 0
 
 @onready var ball = $Ball
 @onready var score_label = $CanvasLayer/ScoreLabel
+@onready var win_screen = $CanvasLayer/WinScreen
+@onready var win_label = $CanvasLayer/WinScreen/WinLabel
 
 func _ready():
 	update_score()
@@ -32,15 +34,20 @@ func _on_goal_right_body_entered(body):
 		await get_tree().create_timer(2.0).timeout
 		reset_ball(-1)
 		
-func check_win():
+func check_win() -> bool:
 	if score_left >= GameSettings.win_score:
-		end_game("Left Player Wins!")
+		end_game("Player 1 Wins!", Color.BLUE)
+		return true
 	elif score_right >= GameSettings.win_score:
-		end_game("Right Player Wins!")
+		end_game("Player 2 Wins!", Color.DARK_RED)
+		return true
+	return false
 		
-func end_game(message):
-	print(message)  
+func end_game(message, color):
 	# stop ball
 	ball.velocity = Vector2.ZERO 
 	# optional: stop game logic
 	set_process(false)
+	win_label.text = message
+	win_label.add_theme_color_override("font_color", color)
+	win_screen.visible = true

@@ -44,6 +44,14 @@ theme_override_colors/font_hover_color = Color(0.627451, 0.96862745, 0.99607843,
 theme_override_font_sizes/font_size = 32
 text = "1 Player"
 
+[node name="DifficultyButton" type="Button" parent="VBoxMenu"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.30980393, 0.6627451, 0.38431373, 1)
+theme_override_colors/font_hover_color = Color(0.627451, 0.96862745, 0.99607843, 1)
+theme_override_font_sizes/font_size = 32
+text = "Medium"
+
 [node name="WinScore" type="Button" parent="VBoxMenu"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
@@ -52,14 +60,6 @@ theme_override_colors/font_hover_color = Color(0.627451, 0.96862745, 0.99607843,
 theme_override_font_sizes/font_size = 32
 text = "Win Score: 3
 "
-
-[node name="DifficultyButton" type="Button" parent="VBoxMenu"]
-custom_minimum_size = Vector2(200, 50)
-layout_mode = 2
-theme_override_colors/font_pressed_color = Color(0.30980393, 0.6627451, 0.38431373, 1)
-theme_override_colors/font_hover_color = Color(0.627451, 0.96862745, 0.99607843, 1)
-theme_override_font_sizes/font_size = 32
-text = "Medium"
 
 [node name="SoundButton" type="Button" parent="VBoxMenu"]
 custom_minimum_size = Vector2(200, 50)
@@ -80,7 +80,7 @@ text = "Exit
 
 [connection signal="pressed" from="VBoxMenu/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="VBoxMenu/PlayerModeButton" to="." method="_on_player_mode_button_pressed"]
-[connection signal="pressed" from="VBoxMenu/WinScore" to="." method="_on_win_score_pressed"]
 [connection signal="pressed" from="VBoxMenu/DifficultyButton" to="." method="_on_difficulty_button_pressed"]
+[connection signal="pressed" from="VBoxMenu/WinScore" to="." method="_on_win_score_pressed"]
 [connection signal="pressed" from="VBoxMenu/SoundButton" to="." method="_on_sound_button_pressed"]
 [connection signal="pressed" from="VBoxMenu/ExitButton" to="." method="_on_exit_button_pressed"]

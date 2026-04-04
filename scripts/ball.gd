@@ -14,10 +14,10 @@ func _ready():
 	velocity = Vector2(-speed, 0)
 	
 func _physics_process(delta):
-	var collision = move_and_collide(velocity * delta)
+	var col = move_and_collide(velocity * delta)
 	
-	if collision:
-		var collider = collision.get_collider()
+	if col:
+		var collider = col.get_collider()
 
 		if collider.name.begins_with("Paddle"):
 			var paddle = collider
@@ -30,10 +30,9 @@ func _physics_process(delta):
 			velocity.x = -velocity.x
 			velocity.y = normalized * speed
 			speed += get_speed_increment()
-			#print(speed)
 			velocity = velocity.normalized() * speed
 		else:
-			velocity = velocity.bounce(collision.get_normal())
+			velocity = velocity.bounce(col.get_normal())
 
 func _draw():
 	draw_circle(Vector2.ZERO, radius, Color.WHITE)
@@ -63,5 +62,5 @@ func get_speed_increment():
 		"medium":
 			return 10
 		"hard":
-			return 15
+			return 10
 	return 10
