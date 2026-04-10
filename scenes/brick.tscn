@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cw7fm05cp5e3m"]
+
+[ext_resource type="Script" uid="uid://dq6rog2qv3pac" path="res://scripts/brick.gd" id="1_5l4w1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0w5h4"]
+
+[node name="Brick" type="Area2D" unique_id=1713943107]
+script = ExtResource("1_5l4w1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1969012902]
+shape = SubResource("RectangleShape2D_0w5h4")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

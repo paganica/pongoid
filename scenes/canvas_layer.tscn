@@ -63,5 +63,56 @@ theme_override_font_sizes/font_size = 48
 text = "Menu
 "
 
+[node name="PauseScreen" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PauseLabel" type="Label" parent="PauseScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 480.0
+offset_top = 200.0
+offset_right = -480.0
+offset_bottom = -450.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "Game paused"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="PauseScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 540.0
+offset_top = 300.0
+offset_right = -540.0
+offset_bottom = -350.0
+theme_override_font_sizes/font_size = 32
+text = "Resume"
+
+[node name="PauseMenuButton" type="Button" parent="PauseScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 540.0
+offset_top = 400.0
+offset_right = -540.0
+offset_bottom = -250.0
+theme_override_font_sizes/font_size = 32
+text = "Menu"
+icon_alignment = 1
+
 [connection signal="pressed" from="WinScreen/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="WinScreen/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="PauseScreen/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="PauseScreen/PauseMenuButton" to="." method="_on_pause_menu_button_pressed"]
