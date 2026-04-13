@@ -1,8 +1,8 @@
 extends Node2D
 
 const BrickScene = preload("res://scenes/brick.tscn")
-const BRICK_SPAWN_INTERVAL = 15.0
-const BRICK_SPAWN_INITIAL_DELAY = 0.0
+const BRICK_SPAWN_INTERVAL = 8.0
+const BRICK_SPAWN_INITIAL_DELAY = 15.0
 const MAX_BRICKS = 3
 const PADDLE_SIZE_BONUS = 40.0
 const PADDLE_SPEED_BONUS = 50.0
@@ -12,7 +12,6 @@ var score_right := 0
 var game_over := false
 var spawn_timer := BRICK_SPAWN_INITIAL_DELAY
 var active_bricks := []
-var extra_balls := []
 
 @onready var ball = $Ball
 @onready var paddle_left = $PaddleLeft
@@ -71,11 +70,6 @@ func end_game(message, color):
 	ball.velocity = Vector2.ZERO
 	ball.set_physics_process(false)
 	ball.visible = false
-
-	for b in extra_balls:
-		if is_instance_valid(b):
-			b.queue_free()
-	extra_balls.clear()
 
 	for brick in active_bricks:
 		if is_instance_valid(brick):
@@ -144,7 +138,7 @@ func brick_hit(brick):
 		1: apply_timed_effect(hitter_paddle, 0.0, PADDLE_SPEED_BONUS)
 		2: apply_timed_effect(opponent_paddle, -PADDLE_SIZE_BONUS, 0.0)
 		3: apply_timed_effect(opponent_paddle, 0.0, -PADDLE_SPEED_BONUS)
-		4: spawn_multiballs()
+		4: pass  # multiball disabled for now
 		5: reset_paddles()
 
 func apply_timed_effect(paddle, size_delta: float, speed_delta: float):
@@ -155,19 +149,6 @@ func apply_timed_effect(paddle, size_delta: float, speed_delta: float):
 	var new_height = clamp(paddle.base_height + size_delta, min_height, max_height)
 	var new_speed = clamp(paddle.base_speed + speed_delta, min_speed, max_speed)
 	paddle.apply_effect(new_height, new_speed)
-
-func spawn_multiballs():
-	var saved_speed = ball.speed
-	var saved_pos = ball.position
-	for i in range(2):
-		var new_ball = preload("res://scenes/ball.tscn").instantiate()
-		new_ball.is_multiball = true
-		new_ball.position = saved_pos
-		add_child(new_ball)
-		new_ball.speed = saved_speed
-		var angle = randf_range(-PI, PI)
-		new_ball.velocity = Vector2(cos(angle), sin(angle)) * saved_speed
-		extra_balls.append(new_ball)
 
 func reset_paddles():
 	for paddle in [paddle_left, paddle_right]:
