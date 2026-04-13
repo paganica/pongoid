@@ -42,6 +42,6 @@ func _draw():
 	draw_rect(Rect2(-brick_width / 2, -brick_height / 2, brick_width, brick_height), Color(1, 1, 1, 0.15))
 
 func _on_body_entered(body):
-	if body.name == "Ball":
+	if body.name == "Ball" or body.name == "Multiball":
 		get_parent().brick_hit(self)
 		queue_free()
