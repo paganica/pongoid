@@ -1,4 +1,4 @@
-extends Area2D
+extends StaticBody2D
 
 @onready var collision = $CollisionShape2D
 
@@ -22,10 +22,11 @@ const BRICK_COLORS = {
 
 var brick_width: float
 var brick_height: float
-
 var brick_type: BrickType
+var already_hit := false
 
 func _ready():
+	add_to_group("bricks")
 	brick_width = get_viewport_rect().size.x / 40.0
 	brick_height = get_viewport_rect().size.y / 12.0
 	#brick_type = randi() % BrickType.size() as BrickType
@@ -41,7 +42,9 @@ func _draw():
 	# draw label hint
 	draw_rect(Rect2(-brick_width / 2, -brick_height / 2, brick_width, brick_height), Color(1, 1, 1, 0.15))
 
-func _on_body_entered(body):
-	if body.name == "Ball" or body.name == "Multiball":
-		get_parent().brick_hit(self)
-		queue_free()
+func hit_by(body):
+	if already_hit:
+		return
+	already_hit = true
+	get_parent().brick_hit(self)
+	queue_free()

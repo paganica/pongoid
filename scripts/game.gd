@@ -1,7 +1,7 @@
 extends Node2D
 
+const BallScene = preload("res://scenes/ball.tscn")
 const BrickScene = preload("res://scenes/brick.tscn")
-const MultiBallScene = preload("res://scenes/multi_ball.tscn")
 const BRICK_SPAWN_INTERVAL = 8.0
 const BRICK_SPAWN_INITIAL_DELAY = 0.0
 const MAX_BRICKS = 3
@@ -47,13 +47,16 @@ func _on_goal_left_body_entered(body):
 		update_score()
 		if check_win():
 			return
+
 		ball.visible = false
 		ball.set_physics_process(false)
-		await wait_for_extra_balls()
-		await get_tree().create_timer(2.0).timeout
-		ball.visible = true
-		ball.set_physics_process(true)
-		reset_ball(1)
+		if not game_over:
+			await wait_for_extra_balls()
+			await get_tree().create_timer(2.0).timeout
+			if not game_over:
+				ball.visible = true
+				ball.set_physics_process(true)
+				reset_ball(1)
 	elif body is CharacterBody2D and extra_balls.has(body):
 		extra_balls.erase(body)
 		body.queue_free()
@@ -67,13 +70,16 @@ func _on_goal_right_body_entered(body):
 		update_score()
 		if check_win():
 			return
+
 		ball.visible = false
 		ball.set_physics_process(false)
-		await wait_for_extra_balls()
-		await get_tree().create_timer(2.0).timeout
-		ball.visible = true
-		ball.set_physics_process(true)
-		reset_ball(-1)
+		if not game_over:
+			await wait_for_extra_balls()
+			await get_tree().create_timer(2.0).timeout
+			if not game_over:
+				ball.visible = true
+				ball.set_physics_process(true)
+				reset_ball(1)
 	elif body is CharacterBody2D and extra_balls.has(body):
 		extra_balls.erase(body)
 		body.queue_free()
@@ -149,16 +155,26 @@ func _get_last_hitter():
 	return null
 
 func spawn_multiballs():
+	if game_over:
+		return
+	var screen_width = get_viewport_rect().size.x
 	var screen_height = get_viewport_rect().size.y
-	var angles = [randf_range(-PI / 2, 0), randf_range(0, PI / 2)]  # one up, one down
+	var center_x = screen_width / 2.0
+	var spawn_x = clamp(ball.position.x, center_x - screen_width / 6.0, center_x + screen_width / 6.0)
+	var dir_x = 1.0 if randf() > 0.5 else -1.0
 	for i in range(2):
-		var mb = MultiBallScene.instantiate()
-		mb.radius = screen_height / 60.0
-		mb.position = ball.position + Vector2(0, (i * 2 - 1) * mb.radius * 3)  # offset up/down
-		mb.speed = ball.speed
-		mb.velocity = Vector2(cos(angles[i]), sin(angles[i])) * ball.speed
-		add_child(mb)
-		extra_balls.append(mb)
+		var new_ball = BallScene.instantiate()
+		new_ball.is_multiball = true  # ADD THIS LINE
+		new_ball.position = Vector2(spawn_x, ball.position.y + (i * 2 - 1) * screen_height / 60.0 * 3)
+		add_child(new_ball)
+		await get_tree().process_frame
+		
+		var angle = randf_range(PI / 6, PI / 3) if i == 0 else randf_range(-PI / 3, -PI / 6)
+		new_ball.velocity = Vector2(cos(angle) * dir_x, sin(angle)) * ball.speed
+		new_ball.speed = ball.speed
+		
+		dir_x *= -1.0
+		extra_balls.append(new_ball)
 		
 func apply_timed_effect(paddle, size_delta: float, speed_delta: float):
 	var min_height = get_viewport_rect().size.y / 12.0
